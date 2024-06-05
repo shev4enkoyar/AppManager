@@ -1,0 +1,21 @@
+﻿<MudItem xs="12" sm="6" md="4">
+    <MudCard @onclick="OnCardClickHandler" 
+             @onmouseenter="OnCardMouseEnterHandler" 
+             @onmouseleave="OnCardMouseLeaveHandler" 
+             Elevation="2">
+        <MudCardHeader>
+            <CardHeaderContent>
+                <MudText>@Title</MudText>
+            </CardHeaderContent>
+            <CardHeaderActions>
+                <MudIconButton OnClick="OnSettingButtonClickHandler" 
+                               Style="@(IsShowCardButtons ? string.Empty : "visibility: hidden")" 
+                               Icon="@Icons.Material.Filled.Settings" 
+                               Color="Color.Default"/>
+            </CardHeaderActions>
+        </MudCardHeader>
+        <MudCardContent>
+            <MudText>@Text</MudText>
+        </MudCardContent>
+    </MudCard>
+</MudItem>

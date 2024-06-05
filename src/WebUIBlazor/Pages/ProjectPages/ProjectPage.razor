@@ -1,0 +1,93 @@
+﻿@page "/ProjectPage"
+@using MudBlazor
+@using ApexCharts
+
+<MudContainer Class="mt-16 px-8" MaxWidth="MaxWidth.False">
+    <MudGrid>
+        <MudItem xs="12" sm="6">
+            <MudGrid>
+                <MudItem xs="12">
+                    <MudPaper Elevation="2" Class="pa-4" Style="height: 200px;">
+                        <MudText Typo="Typo.h6">Active users per version</MudText>
+                    </MudPaper>
+                </MudItem>
+                <MudItem xs="12">
+                    <MudPaper Elevation="2" Class="pa-4" Style="height: 200px;">
+                        <MudText Typo="Typo.h6">Country/Region</MudText>
+                    </MudPaper>
+                </MudItem>
+            </MudGrid>
+        </MudItem>
+        <MudItem xs="12" sm="6">
+            <MudPaper Elevation="2" Class="pa-4" Style="height: 100%">
+                <MudText Typo="Typo.h6">Top OS</MudText>
+            </MudPaper>
+        </MudItem>
+        <MudItem xs="12" sm="8" md="8">
+            <MudPaper Elevation="2" Class="pa-4" Style="height: 200px;">
+                <MudText Typo="Typo.h6">Active users</MudText>
+                <ApexChart Options="Options" Height="150" TItem="MyData">
+
+                    <ApexPointSeries TItem="MyData"
+                                     Items="Data"
+                                     Name="Active users"
+                                     SeriesType="SeriesType.Line"
+                                     XValue="@(e => e.Category)"
+                                     YAggregate="@(e => e.Sum(e => e.NetProfit))"
+                                     OrderBy="e=>e.Y" />
+                </ApexChart>
+            </MudPaper>
+        </MudItem>
+        <MudItem xs="12" sm="4" md="4">
+            <MudPaper Elevation="2" Class="pa-4" Style="height: 200px;">
+                <MudText Typo="Typo.h6">Annexes</MudText>
+            </MudPaper>
+        </MudItem>
+    </MudGrid>
+</MudContainer>
+
+@code {
+    private List<MyData> Data { get; set; } = new();
+    protected override void OnInitialized()
+    {
+        Data.Add(new MyData { Category = "Mar9", NetProfit = 200, Revenue = 23 });
+        Data.Add(new MyData { Category = "Mar8", NetProfit = 321, Revenue = 23 });
+        Data.Add(new MyData { Category = "Mar7", NetProfit = 415, Revenue = 23 });
+        Data.Add(new MyData { Category = "Mar6", NetProfit = 215, Revenue = 23 });
+        Data.Add(new MyData { Category = "Mar5", NetProfit = 192, Revenue = 23 });
+        Data.Add(new MyData { Category = "Mar4", NetProfit = 180, Revenue = 23 });
+        Data.Add(new MyData { Category = "Mar3", NetProfit = 160, Revenue = 23 });
+        Data.Add(new MyData { Category = "Mar2", NetProfit = 140, Revenue = 23 });
+        Data.Add(new MyData { Category = "Mar1", NetProfit = 130, Revenue = 23 });
+        Data.Add(new MyData { Category = "Mar", NetProfit = 112, Revenue = 23 });
+        Data.Add(new MyData { Category = "Feb", NetProfit = 43, Revenue = 42 });
+        Data.Add(new MyData { Category = "Jan", NetProfit = 12, Revenue = 33 });
+    }
+
+    private ApexChartOptions<MyData> Options { get; set; } = new ApexChartOptions<MyData>()
+    {
+        Chart = new Chart()
+        {
+            Zoom = new Zoom()
+            {
+                Enabled = false
+            },
+            Background = "#373740",
+            Toolbar = new Toolbar()
+            {
+                Show = false
+            }
+        },
+        Theme = new Theme()
+        {
+            Mode = Mode.Dark
+        }
+    };
+
+    public class MyData
+    {
+        public string Category { get; set; }
+        public int NetProfit { get; set; }
+        public int Revenue { get; set; }
+    }
+}
