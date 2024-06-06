@@ -1,5 +1,7 @@
 ﻿@page "/"
+@using WebUIBlazor.Services.ContentApi
 @attribute [Route(Paths.ProjectList)]
+@inject IContentApi ContentApi
 
 @code
 {
@@ -9,6 +11,7 @@
 
     protected async override Task OnInitializedAsync()
     {
+        await ContentApi.GetProjectList();
     }
 
     protected override void OnAfterRender(bool firstRender)
