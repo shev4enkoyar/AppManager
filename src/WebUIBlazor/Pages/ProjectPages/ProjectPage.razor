@@ -1,30 +1,34 @@
-﻿@page "/ProjectPage"
+﻿@attribute [Route(Paths.Project)]
 @using MudBlazor
 @using ApexCharts
+@using Size = ApexCharts.Size
+@using WebUIBlazor.Components.Shared
+@using WebUIBlazor.Services.NavigationService
+@inject INavigationService NavigationService
 
 <MudContainer Class="mt-16 px-8" MaxWidth="MaxWidth.False">
     <MudGrid>
         <MudItem xs="12" sm="6">
             <MudGrid>
                 <MudItem xs="12">
-                    <MudPaper Elevation="2" Class="pa-4" Style="height: 200px;">
+                    <CustomPaperCard>
                         <MudText Typo="Typo.h6">Active users per version</MudText>
-                    </MudPaper>
+                    </CustomPaperCard>
                 </MudItem>
                 <MudItem xs="12">
-                    <MudPaper Elevation="2" Class="pa-4" Style="height: 200px;">
+                    <CustomPaperCard>
                         <MudText Typo="Typo.h6">Country/Region</MudText>
-                    </MudPaper>
+                    </CustomPaperCard>
                 </MudItem>
             </MudGrid>
         </MudItem>
         <MudItem xs="12" sm="6">
-            <MudPaper Elevation="2" Class="pa-4" Style="height: 100%">
+            <CustomPaperCard Style="height: 100%">
                 <MudText Typo="Typo.h6">Top OS</MudText>
-            </MudPaper>
+            </CustomPaperCard>
         </MudItem>
         <MudItem xs="12" sm="8" md="8">
-            <MudPaper Elevation="2" Class="pa-4" Style="height: 200px;">
+            <CustomPaperCard>
                 <MudText Typo="Typo.h6">Active users</MudText>
                 <ApexChart Options="Options" Height="150" TItem="MyData">
 
@@ -33,35 +37,59 @@
                                      Name="Active users"
                                      SeriesType="SeriesType.Line"
                                      XValue="@(e => e.Category)"
-                                     YAggregate="@(e => e.Sum(e => e.NetProfit))"
-                                     OrderBy="e=>e.Y" />
+                                     YAggregate="@(e => e.Sum(e => e.NetProfit))"/>
                 </ApexChart>
-            </MudPaper>
+            </CustomPaperCard>
         </MudItem>
         <MudItem xs="12" sm="4" md="4">
-            <MudPaper Elevation="2" Class="pa-4" Style="height: 200px;">
+            <CustomPaperCard OnClick="OnAnnexesPaperClickHandler">
                 <MudText Typo="Typo.h6">Annexes</MudText>
-            </MudPaper>
+            </CustomPaperCard>
         </MudItem>
     </MudGrid>
 </MudContainer>
 
+
+
 @code {
+    [Parameter]
+    public Guid ProjectId { get; set; }
+    
     private List<MyData> Data { get; set; } = new();
     protected override void OnInitialized()
     {
-        Data.Add(new MyData { Category = "Mar9", NetProfit = 200, Revenue = 23 });
-        Data.Add(new MyData { Category = "Mar8", NetProfit = 321, Revenue = 23 });
-        Data.Add(new MyData { Category = "Mar7", NetProfit = 415, Revenue = 23 });
-        Data.Add(new MyData { Category = "Mar6", NetProfit = 215, Revenue = 23 });
-        Data.Add(new MyData { Category = "Mar5", NetProfit = 192, Revenue = 23 });
-        Data.Add(new MyData { Category = "Mar4", NetProfit = 180, Revenue = 23 });
-        Data.Add(new MyData { Category = "Mar3", NetProfit = 160, Revenue = 23 });
-        Data.Add(new MyData { Category = "Mar2", NetProfit = 140, Revenue = 23 });
-        Data.Add(new MyData { Category = "Mar1", NetProfit = 130, Revenue = 23 });
-        Data.Add(new MyData { Category = "Mar", NetProfit = 112, Revenue = 23 });
-        Data.Add(new MyData { Category = "Feb", NetProfit = 43, Revenue = 42 });
-        Data.Add(new MyData { Category = "Jan", NetProfit = 12, Revenue = 33 });
+        Data.Add(new MyData { Category = "May 6", NetProfit = 200, Order = 1 });
+        Data.Add(new MyData { Category = "May 7", NetProfit = 321, Order = 2 });
+        Data.Add(new MyData { Category = "May 8", NetProfit = 415, Order = 3 });
+        Data.Add(new MyData { Category = "May 9", NetProfit = 215, Order = 4 });
+        Data.Add(new MyData { Category = "May 10", NetProfit = 192, Order = 5 });
+        Data.Add(new MyData { Category = "May 11", NetProfit = 180, Order = 6 });
+        Data.Add(new MyData { Category = "May 12", NetProfit = 160, Order = 7 });
+        Data.Add(new MyData { Category = "May 13", NetProfit = 140, Order = 8 });
+        Data.Add(new MyData { Category = "May 14", NetProfit = 130, Order = 23 });
+        Data.Add(new MyData { Category = "May 15", NetProfit = 112, Order = 23 });
+        Data.Add(new MyData { Category = "May 16", NetProfit = 43, Order = 42 });
+        Data.Add(new MyData { Category = "May 17", NetProfit = 12, Order = 33 });
+        Data.Add(new MyData { Category = "May 18", NetProfit = 12, Order = 33 });
+        Data.Add(new MyData { Category = "May 19", NetProfit = 12, Order = 33 });
+        Data.Add(new MyData { Category = "May 20", NetProfit = 12, Order = 33 });
+        Data.Add(new MyData { Category = "May 21", NetProfit = 12, Order = 33 });
+        Data.Add(new MyData { Category = "May 22", NetProfit = 12, Order = 33 });
+        Data.Add(new MyData { Category = "May 23", NetProfit = 12, Order = 33 });
+        Data.Add(new MyData { Category = "May 24", NetProfit = 12, Order = 33 });
+        Data.Add(new MyData { Category = "May 25", NetProfit = 12, Order = 33 });
+        Data.Add(new MyData { Category = "May 26", NetProfit = 12, Order = 33 });
+        Data.Add(new MyData { Category = "May 27", NetProfit = 12, Order = 33 });
+        Data.Add(new MyData { Category = "May 28", NetProfit = 12, Order = 33 });
+        Data.Add(new MyData { Category = "May 29", NetProfit = 12, Order = 33 });
+        Data.Add(new MyData { Category = "May 30", NetProfit = 12, Order = 33 });
+        Data.Add(new MyData { Category = "May 31", NetProfit = 12, Order = 33 });
+        Data.Add(new MyData { Category = "June 1", NetProfit = 12, Order = 33 });
+        Data.Add(new MyData { Category = "June 2", NetProfit = 12, Order = 33 });
+        Data.Add(new MyData { Category = "June 3", NetProfit = 12, Order = 33 });
+        Data.Add(new MyData { Category = "June 4", NetProfit = 12, Order = 33 });
+        Data.Add(new MyData { Category = "June 5", NetProfit = 12, Order = 33 });
+        Data.Add(new MyData { Category = "June 6", NetProfit = 12, Order = 33 });
     }
 
     private ApexChartOptions<MyData> Options { get; set; } = new ApexChartOptions<MyData>()
@@ -81,6 +109,11 @@
         Theme = new Theme()
         {
             Mode = Mode.Dark
+        },
+        Colors = new List<string>() { "#e81123"},
+        Stroke = new Stroke()
+        {
+            Width = new Size(3)
         }
     };
 
@@ -88,6 +121,11 @@
     {
         public string Category { get; set; }
         public int NetProfit { get; set; }
-        public int Revenue { get; set; }
+        public int Order { get; set; }
+    }
+
+    private void OnAnnexesPaperClickHandler()
+    {
+        NavigationService.GoToAnnexListPage(ProjectId);
     }
 }

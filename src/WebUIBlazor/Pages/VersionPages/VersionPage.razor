@@ -1,5 +1,5 @@
-﻿@attribute [Route(Paths.VersionList)]
-<h3>VersionListPage</h3>
+﻿@attribute [Route(Paths.Version)]
+<h3>VersionPage</h3>
 
 @code {
     [Parameter]
@@ -10,4 +10,7 @@
     
     [Parameter]
     public Guid BranchId { get; set; }
+    
+    [Parameter]
+    public Guid VersionId { get; set; }
 }

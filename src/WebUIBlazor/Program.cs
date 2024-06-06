@@ -1,5 +1,7 @@
 using WebUIBlazor.Components;
 using MudBlazor.Services;
+using MudExtensions.Services;
+using WebUIBlazor.Services.NavigationService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +10,9 @@ builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
 builder.Services.AddMudServices();
+builder.Services.AddMudExtensions();
+
+builder.Services.AddTransient<INavigationService, NavigationService>();
 
 var app = builder.Build();
 
