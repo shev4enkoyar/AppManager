@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 
-namespace WebUIBlazor.Pages.BranchPages;
+namespace WebUIBlazor.Components.Pages.BranchPages;
 
 public partial class BranchCreatePage : ComponentBase
 {

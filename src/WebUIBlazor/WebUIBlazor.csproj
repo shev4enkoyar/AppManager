@@ -15,8 +15,48 @@
 
 
     <ItemGroup>
-      <Folder Include="Pages\AuthPages\" />
-      <Folder Include="Pages\ErrorPages\" />
+      <_ContentIncludedByDefault Remove="Pages\AnnexPages\AnnexCreatePage.razor" />
+      <_ContentIncludedByDefault Remove="Pages\AnnexPages\AnnexListPage.razor" />
+      <_ContentIncludedByDefault Remove="Pages\AnnexPages\AnnexManagePage.razor" />
+      <_ContentIncludedByDefault Remove="Pages\AnnexPages\AnnexPage.razor" />
+      <_ContentIncludedByDefault Remove="Pages\App.razor" />
+      <_ContentIncludedByDefault Remove="Pages\BranchPages\BranchCreatePage.razor" />
+      <_ContentIncludedByDefault Remove="Pages\BranchPages\BranchListPage.razor" />
+      <_ContentIncludedByDefault Remove="Pages\BranchPages\BranchManagePage.razor" />
+      <_ContentIncludedByDefault Remove="Pages\BranchPages\BranchPage.razor" />
+      <_ContentIncludedByDefault Remove="Pages\ErrorPages\404.razor" />
+      <_ContentIncludedByDefault Remove="Pages\ErrorPages\Error.razor" />
+      <_ContentIncludedByDefault Remove="Pages\ProjectPages\ProjectCreatePage.razor" />
+      <_ContentIncludedByDefault Remove="Pages\ProjectPages\ProjectListPage.razor" />
+      <_ContentIncludedByDefault Remove="Pages\ProjectPages\ProjectManagePage.razor" />
+      <_ContentIncludedByDefault Remove="Pages\ProjectPages\ProjectPage.razor" />
+      <_ContentIncludedByDefault Remove="Pages\Routes.razor" />
+      <_ContentIncludedByDefault Remove="Pages\VersionPages\VersionCreatePage.razor" />
+      <_ContentIncludedByDefault Remove="Pages\VersionPages\VersionListPage.razor" />
+      <_ContentIncludedByDefault Remove="Pages\VersionPages\VersionManagePage.razor" />
+      <_ContentIncludedByDefault Remove="Pages\VersionPages\VersionPage.razor" />
+      <_ContentIncludedByDefault Remove="Pages\_Imports.razor" />
+    </ItemGroup>
+
+
+    <ItemGroup>
+      <AdditionalFiles Include="Components\Pages\AnnexPages\AnnexCreatePage.razor" />
+      <AdditionalFiles Include="Components\Pages\AnnexPages\AnnexListPage.razor" />
+      <AdditionalFiles Include="Components\Pages\AnnexPages\AnnexManagePage.razor" />
+      <AdditionalFiles Include="Components\Pages\AnnexPages\AnnexPage.razor" />
+      <AdditionalFiles Include="Components\Pages\BranchPages\BranchCreatePage.razor" />
+      <AdditionalFiles Include="Components\Pages\BranchPages\BranchListPage.razor" />
+      <AdditionalFiles Include="Components\Pages\BranchPages\BranchManagePage.razor" />
+      <AdditionalFiles Include="Components\Pages\BranchPages\BranchPage.razor" />
+      <AdditionalFiles Include="Components\Pages\ErrorPages\Error.razor" />
+      <AdditionalFiles Include="Components\Pages\ProjectPages\ProjectCreatePage.razor" />
+      <AdditionalFiles Include="Components\Pages\ProjectPages\ProjectListPage.razor" />
+      <AdditionalFiles Include="Components\Pages\ProjectPages\ProjectManagePage.razor" />
+      <AdditionalFiles Include="Components\Pages\ProjectPages\ProjectPage.razor" />
+      <AdditionalFiles Include="Components\Pages\VersionPages\VersionCreatePage.razor" />
+      <AdditionalFiles Include="Components\Pages\VersionPages\VersionListPage.razor" />
+      <AdditionalFiles Include="Components\Pages\VersionPages\VersionManagePage.razor" />
+      <AdditionalFiles Include="Components\Pages\VersionPages\VersionPage.razor" />
     </ItemGroup>
 
 </Project>

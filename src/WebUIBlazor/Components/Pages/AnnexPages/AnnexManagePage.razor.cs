@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 
-namespace WebUIBlazor.Pages.AnnexPages;
+namespace WebUIBlazor.Components.Pages.AnnexPages;
 
 public partial class AnnexManagePage : ComponentBase
 {

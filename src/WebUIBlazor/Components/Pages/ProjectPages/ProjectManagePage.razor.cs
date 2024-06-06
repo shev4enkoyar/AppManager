@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 
-namespace WebUIBlazor.Pages.ProjectPages;
+namespace WebUIBlazor.Components.Pages.ProjectPages;
 
 public partial class ProjectManagePage : ComponentBase
 {
