@@ -1,16 +1,18 @@
-﻿<MudItem xs="12" sm="6" md="4">
-    <MudCard @onclick="OnCardClickHandler" 
-             @onmouseenter="OnCardMouseEnterHandler" 
-             @onmouseleave="OnCardMouseLeaveHandler" 
+﻿@using MudExtensions.Enums
+<MudItem xs="@Xs" sm="@Sm" md="@Md">
+    <MudCard Class="@($"animId{AnimationId}")"
+             @onclick="OnCardClickHandler"
+             @onmouseenter="OnCardMouseEnterHandler"
+             @onmouseleave="OnCardMouseLeaveHandler"
              Elevation="2">
         <MudCardHeader>
             <CardHeaderContent>
-                <MudText>@Title</MudText>
+                <MudText Typo="@HeaderTypo">@Title</MudText>
             </CardHeaderContent>
             <CardHeaderActions>
-                <MudIconButton OnClick="OnSettingButtonClickHandler" 
-                               Style="@(IsShowCardButtons ? string.Empty : "visibility: hidden")" 
-                               Icon="@Icons.Material.Filled.Settings" 
+                <MudIconButton OnClick="OnSettingButtonClickHandler"
+                               Style="@(ShowSettingButtonAlways ? string.Empty : IsShowCardButtons ? string.Empty : "visibility: hidden")"
+                               Icon="@Icons.Material.Filled.Settings"
                                Color="Color.Default"/>
             </CardHeaderActions>
         </MudCardHeader>
@@ -19,3 +21,6 @@
         </MudCardContent>
     </MudCard>
 </MudItem>
+
+<MudAnimate Selector="@($".animId{AnimationId}")" Duration="_duration" AnimationType="AnimationType.Shadow" Value="_value" Hover="true" Infinite="true"
+            AnimationTiming="_animationTiming" AnimationDirection="_animationDirection" AnimationFillMode="_animationFillMode"/>

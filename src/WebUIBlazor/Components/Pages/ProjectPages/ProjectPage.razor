@@ -1,10 +1,18 @@
 ﻿@attribute [Route(Paths.Project)]
 @using ApexCharts
 @using Size = ApexCharts.Size
-@using WebUIBlazor.Components.Shared
 
-<MudContainer Class="mt-16 px-8" MaxWidth="MaxWidth.False">
+<PageTitle>@ProjectModel?.Name</PageTitle>
+<MudContainer Class="mt-2 px-8" MaxWidth="MaxWidth.False">
     <MudGrid>
+        <CustomGridCard Xs="12"
+                        Sm="12"
+                        Md="12"
+                        HeaderTypo="Typo.h5"
+                        ShowSettingButtonAlways="true"
+                        Title="@ProjectModel?.Name"
+                        Text="@ProjectModel?.Description"
+                        OnSettingButtonClick="OnSettingButtonClickedHandler"/>
         <MudItem xs="12" sm="6">
             <MudGrid>
                 <MudItem xs="12">
@@ -39,20 +47,19 @@
             </CustomPaperCard>
         </MudItem>
         <MudItem xs="12" sm="4" md="4">
-            <CustomPaperCard OnClick="OnAnnexesPaperClickHandler">
-                <MudText Typo="Typo.h6">Annexes</MudText>
+            <CustomPaperCard Class="d-flex justify-center align-center" OnClick="OnAnnexesCardClickHandler">
+                <MudText Typo="Typo.h3">Annexes: 6</MudText>
             </CustomPaperCard>
         </MudItem>
     </MudGrid>
 </MudContainer>
 
+<FixedButton OnClick="() => NavigationService.GoToProjectList()"/>
 
 
 @code {
-    [Parameter]
-    public Guid ProjectId { get; set; }
-    
-    private List<MyData> Data { get; set; } = new();
+    private List<MyData> Data { get; } = new();
+
     protected override void OnInitialized()
     {
         Data.Add(new MyData { Category = "May 6", NetProfit = 200, Order = 1 });
@@ -89,26 +96,26 @@
         Data.Add(new MyData { Category = "June 6", NetProfit = 12, Order = 33 });
     }
 
-    private ApexChartOptions<MyData> Options { get; set; } = new ApexChartOptions<MyData>()
+    private ApexChartOptions<MyData> Options { get; } = new()
     {
-        Chart = new Chart()
+        Chart = new Chart
         {
-            Zoom = new Zoom()
+            Zoom = new Zoom
             {
                 Enabled = false
             },
             Background = "#373740",
-            Toolbar = new Toolbar()
+            Toolbar = new Toolbar
             {
                 Show = false
             }
         },
-        Theme = new Theme()
+        Theme = new Theme
         {
             Mode = Mode.Dark
         },
-        Colors = new List<string>() { "#e81123"},
-        Stroke = new Stroke()
+        Colors = new List<string> { "#e81123" },
+        Stroke = new Stroke
         {
             Width = new Size(3)
         }
@@ -121,8 +128,4 @@
         public int Order { get; set; }
     }
 
-    private void OnAnnexesPaperClickHandler()
-    {
-        NavigationService.GoToAnnexListPage(ProjectId);
-    }
 }

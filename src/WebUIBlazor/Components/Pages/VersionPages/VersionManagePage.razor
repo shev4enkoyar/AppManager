@@ -1,6 +1,8 @@
 ﻿@attribute [Route(Paths.VersionManage)]
 <h3>VersionManagePage</h3>
 
+<FixedButton OnClick="() => NavigationService.GoToVersion(ProjectId, AnnexId, BranchId, VersionId)"/>
+
 @code {
     [Parameter]
     public Guid ProjectId { get; set; }

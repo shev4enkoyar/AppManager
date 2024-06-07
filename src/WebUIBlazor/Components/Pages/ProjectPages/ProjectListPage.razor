@@ -1,21 +1,14 @@
 ﻿@page "/"
-@using WebUIBlazor.Services.ContentApi
 @attribute [Route(Paths.ProjectList)]
-@inject IContentApi ContentApi
 
-@code
-{
-    protected async override Task OnParametersSetAsync()
-    {
-    }
-
-    protected async override Task OnInitializedAsync()
-    {
-        await ContentApi.GetProjectList();
-    }
-
-    protected override void OnAfterRender(bool firstRender)
-    {
-    }
-
-}
+<MudContainer Class="mt-16 px-8" MaxWidth="MaxWidth.False">
+    <MudGrid>
+        @foreach (var item in _projectListPage.Items)
+        {
+            <CustomGridCard OnCardClicked="() => OnCardClickHandler(item.Id)"
+                            OnSettingButtonClick="() => OnSettingButtonClickedHandler(item.Id)"
+                            Title="@item.Name"
+                            Text="@item.Description"/>
+        }
+    </MudGrid>
+</MudContainer>

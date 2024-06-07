@@ -1,39 +1,36 @@
+using System.Reflection;
+using Microsoft.AspNetCore.Components.Authorization;
 using MudBlazor.Services;
 using MudExtensions.Services;
-using Polly;
-using Polly.Extensions.Http;
+using WebUIBlazor.Auth;
 using WebUIBlazor.Components;
-using WebUIBlazor.Services.ContentApi;
+using WebUIBlazor.Services.AppManagerClient;
 using WebUIBlazor.Services.NavigationService;
 
-var builder = WebApplication.CreateBuilder(args);
+WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
 builder.Services.AddMudServices();
 builder.Services.AddMudExtensions();
 
-// Create the retry policy we want
-var retryPolicy = HttpPolicyExtensions.HandleTransientHttpError() // HttpRequestException, 5XX and 408  
-    .RetryAsync();
-
-// Register the InventoryClient with Polly policies
-builder.Services.AddHttpClient<IContentApi, ContentApi>().ConfigureHttpClient(httpClient =>
+builder.Services.AddTransient<LoginService>();
+builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthStateProvider>();
+builder.Services.AddHttpClient<IAppManagerClient, AppManagerClient>(options =>
 {
-    httpClient.BaseAddress = new Uri(builder.Configuration["ApiAddress"]);
+    options.BaseAddress = new Uri(builder.Configuration["ApiAddress"]);
+    options.Timeout = TimeSpan.FromSeconds(30);
+    // options.DefaultRequestHeaders.TryAddWithoutValidation("Service", Assembly.GetAssembly(typeof(Program))?.GetName().Name);
 });
 
 builder.Services.AddTransient<INavigationService, NavigationService>();
 
-var app = builder.Build();
+WebApplication app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/error", createScopeForErrors: true);
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+    app.UseExceptionHandler("/error", true);
     app.UseHsts();
 }
 

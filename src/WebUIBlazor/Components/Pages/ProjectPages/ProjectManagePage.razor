@@ -1,5 +1,10 @@
-﻿@attribute [Route(Paths.ProjectManage)]
+﻿@using Microsoft.AspNetCore.Authorization
+@attribute [Route(Paths.ProjectManage)]
+@attribute [Authorize]
 <h3>ProjectManagePage</h3>
+
+
+<FixedButton OnClick="() => NavigationService.GoToProject(ProjectId)"/>
 
 @code {
     [Parameter]

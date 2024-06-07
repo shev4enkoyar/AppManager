@@ -1,6 +1,8 @@
 ﻿@attribute [Route(Paths.AnnexList)]
 <h3>AnnexListPage</h3>
 
+<FixedButton OnClick="() => NavigationService.GoToProject(ProjectId)"/>
+
 @code {
     [Parameter]
     public Guid ProjectId { get; set; }

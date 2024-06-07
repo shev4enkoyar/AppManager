@@ -1,6 +1,8 @@
 ﻿@attribute [Route(Paths.Branch)]
 <h3>BranchPage</h3>
 
+<FixedButton OnClick="() => NavigationService.GoToBranchList(ProjectId, AnnexId)"/>
+
 @code {
     [Parameter]
     public Guid ProjectId { get; set; }
