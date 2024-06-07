@@ -14,6 +14,7 @@ builder.Services.AddRazorComponents()
 
 builder.Services.AddMudServices();
 builder.Services.AddMudExtensions();
+builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddTransient<LoginService>();
 builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthStateProvider>();

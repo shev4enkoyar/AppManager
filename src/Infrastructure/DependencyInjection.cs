@@ -4,6 +4,8 @@ using AppManager.Domain.Constants;
 using AppManager.Infrastructure.Data;
 using AppManager.Infrastructure.Data.Interceptors;
 using AppManager.Infrastructure.Identity;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
@@ -40,7 +42,9 @@ public static class DependencyInjection
         services.AddAuthorizationBuilder();
 
         services
-            .AddIdentityCore<ApplicationUser>()
+            .AddIdentityCore<ApplicationUser>(options =>
+            {
+            })
             .AddRoles<IdentityRole>()
             .AddEntityFrameworkStores<ApplicationDbContext>()
             .AddApiEndpoints();
@@ -52,5 +56,23 @@ public static class DependencyInjection
             options.AddPolicy(Policies.CanPurge, policy => policy.RequireRole(Roles.Administrator)));
 
         return services;
+    }
+}
+
+public class MyDataProtector : IDataProtector
+{
+    public IDataProtector CreateProtector(string purpose)
+    {
+        return new MyDataProtector();
+    }
+
+    public byte[] Protect(byte[] plaintext)
+    {
+        return plaintext;
+    }
+
+    public byte[] Unprotect(byte[] protectedData)
+    {
+        return protectedData;
     }
 }

@@ -1,9 +1,9 @@
-﻿@using Microsoft.AspNetCore.Authorization
+﻿@using Microsoft.AspNetCore.Components.Authorization
 @using WebUIBlazor.Auth
 @using WebUIBlazor.Models
 @inherits LayoutComponentBase
 @inject LoginService LoginService
-@inject IAuthorizationService AuthorizationService
+@inject AuthenticationStateProvider AuthenticationStateProvider
 
 <MudThemingProvider IsDarkMode="true"/>
 <MudPopoverProvider/>
@@ -55,6 +55,11 @@
 
 @code
 {
+    protected override async Task OnInitializedAsync()
+    {
+        
+    }
+
     private bool IsSignIn { get; set; } = false;
     private void OnTitleTextClickHandler()
     {
@@ -66,8 +71,10 @@
         
     }
 
-    private void OnSignOutSelectHandler()
+    private async Task OnSignOutSelectHandler()
     {
+        await LoginService.LogoutAsync();
+        IsSignIn = false;
     }
 
     private void OnProfileSelectHandler()
@@ -78,13 +85,15 @@
     {
     }
 
-    private async void OnSignInClickHandler()
+    private async Task OnSignInClickHandler()
     {
         IsSignIn = await LoginService.LoginAsync(new LoginModel()
         {
             Email = "administrator@localhost",
             Password = "Administrator1!"
         });
+
+        var state = (await AuthenticationStateProvider.GetAuthenticationStateAsync()).User.Identity.IsAuthenticated;
         StateHasChanged();
     }
 }

@@ -15,13 +15,13 @@ public static class JwtTokenHelper
         {
             tokenHandler.ValidateToken(token, new TokenValidationParameters
             {
-                ValidateIssuerSigningKey = true,
-                ValidateIssuer = true,
+                ValidateIssuerSigningKey = false,
+                ValidateIssuer = false,
                 ValidateAudience = false,
                 ValidateLifetime = true,
                 RequireExpirationTime = true,
-                ValidIssuer = configuration.GetValue<string>("JWTSettings:ValidIssuer"),
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration.GetValue<string>("JWTSettings:Secret")))
+                // ValidIssuer = configuration.GetValue<string>("JWTSettings:ValidIssuer"),
+                // IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration.GetValue<string>("JWTSettings:Secret")))
             }, out var validatedToken);
         }
         catch

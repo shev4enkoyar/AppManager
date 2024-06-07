@@ -38,49 +38,49 @@ public class LoginService
     }
 
 
-    // public async Task<List<Claim>> GetLoginInfoAsync()
-    // {
-    //     var emptyResult = new List<Claim>();
-    //     ProtectedBrowserStorageResult<string> accessToken;
-    //     ProtectedBrowserStorageResult<string> refreshToken;
-    //     try
-    //     {
-    //         accessToken = await _localStorage.GetAsync<string>(AccessToken);
-    //         refreshToken = await _localStorage.GetAsync<string>(RefreshToken);
-    //     }
-    //     catch (CryptographicException)
-    //     {
-    //         await LogoutAsync();
-    //         return emptyResult;
-    //     }
-    //
-    //     if (accessToken.Success is false || accessToken.Value == default) 
-    //         return emptyResult;
-    //     
-    //     var claims = JwtTokenHelper.ValidateDecodeToken(accessToken.Value, _configuration);
-    //         
-    //     if (claims.Count != 0) 
-    //         return claims;
-    //         
-    //     if (refreshToken.Value != default)
-    //     {
-    //         var response = await _appManagerClient.RefreshTokenAsync(refreshToken.Value);
-    //         if (!string.IsNullOrWhiteSpace(response.AccessToken))
-    //         {
-    //             await _localStorage.SetAsync(AccessToken, response.AccessToken);
-    //             await _localStorage.SetAsync(RefreshToken, response.RefreshToken);
-    //             claims = JwtTokenHelper.ValidateDecodeToken(response.AccessToken, _configuration);
-    //             return claims;
-    //         }
-    //
-    //         await LogoutAsync();
-    //     }
-    //     else
-    //     {
-    //         await LogoutAsync();
-    //     }
-    //     return claims;
-    // }
+    public async Task<List<Claim>> GetLoginInfoAsync()
+    {
+        var emptyResult = new List<Claim>();
+        ProtectedBrowserStorageResult<string> accessToken;
+        ProtectedBrowserStorageResult<string> refreshToken;
+        try
+        {
+            accessToken = await _localStorage.GetAsync<string>(AccessToken);
+            refreshToken = await _localStorage.GetAsync<string>(RefreshToken);
+        }
+        catch (CryptographicException)
+        {
+            await LogoutAsync();
+            return emptyResult;
+        }
+    
+        if (accessToken.Success is false || accessToken.Value == default) 
+            return emptyResult;
+        
+        var claims = JwtTokenHelper.ValidateDecodeToken(accessToken.Value, _configuration);
+            
+        if (claims.Count != 0) 
+            return claims;
+            
+        if (refreshToken.Value != default)
+        {
+            var response = await _appManagerClient.RefreshTokenAsync(refreshToken.Value);
+            if (!string.IsNullOrWhiteSpace(response.AccessToken))
+            {
+                await _localStorage.SetAsync(AccessToken, response.AccessToken);
+                await _localStorage.SetAsync(RefreshToken, response.RefreshToken);
+                claims = JwtTokenHelper.ValidateDecodeToken(response.AccessToken, _configuration);
+                return claims;
+            }
+    
+            await LogoutAsync();
+        }
+        else
+        {
+            await LogoutAsync();
+        }
+        return claims;
+    }
     
     public async Task<string> GetTokenAsync()
     {
