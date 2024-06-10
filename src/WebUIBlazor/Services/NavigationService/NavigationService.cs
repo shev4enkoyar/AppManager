@@ -9,33 +9,33 @@ public class NavigationService(NavigationManager navigationManager) : INavigatio
         navigationManager.NavigateTo(Paths.ProjectCreate);
     }
 
-    public void GoToProjectList()
+    public void GoToProjectList(bool forceLoad = false)
     {
-        navigationManager.NavigateTo(Paths.ProjectList);
+        navigationManager.NavigateTo(Paths.ProjectList, forceLoad);
     }
 
     public void GoToProject(Guid projectId)
     {
-        navigationManager.NavigateTo(GetPathWithVariables(Paths.Project, 
-            new Dictionary<string, string> {{"{projectId:guid}", projectId.ToString()}}));
+        navigationManager.NavigateTo(GetPathWithVariables(Paths.Project,
+            new Dictionary<string, string> { { "{projectId:guid}", projectId.ToString() } }));
     }
 
     public void GoToProjectManage(Guid projectId)
     {
         navigationManager.NavigateTo(GetPathWithVariables(Paths.ProjectManage,
-            new Dictionary<string, string> {{"{projectId:guid}", projectId.ToString()}}));
+            new Dictionary<string, string> { { "{projectId:guid}", projectId.ToString() } }));
     }
 
     public void GoToAnnexCreate(Guid projectId)
     {
         navigationManager.NavigateTo(GetPathWithVariables(Paths.AnnexCreate,
-            new Dictionary<string, string> {{"{projectId:guid}", projectId.ToString()}}));
+            new Dictionary<string, string> { { "{projectId:guid}", projectId.ToString() } }));
     }
 
     public void GoToAnnexListPage(Guid projectId)
     {
         navigationManager.NavigateTo(GetPathWithVariables(Paths.AnnexList,
-            new Dictionary<string, string> {{"{projectId:guid}", projectId.ToString()}}));
+            new Dictionary<string, string> { { "{projectId:guid}", projectId.ToString() } }));
     }
 
     public void GoToAnnex(Guid projectId, Guid annexId)
@@ -43,8 +43,7 @@ public class NavigationService(NavigationManager navigationManager) : INavigatio
         navigationManager.NavigateTo(GetPathWithVariables(Paths.Annex,
             new Dictionary<string, string>
             {
-                {"{projectId:guid}", projectId.ToString()},
-                {"{annexId:guid}", annexId.ToString()}
+                { "{projectId:guid}", projectId.ToString() }, { "{annexId:guid}", annexId.ToString() }
             }));
     }
 
@@ -53,8 +52,7 @@ public class NavigationService(NavigationManager navigationManager) : INavigatio
         navigationManager.NavigateTo(GetPathWithVariables(Paths.AnnexManage,
             new Dictionary<string, string>
             {
-                {"{projectId:guid}", projectId.ToString()},
-                {"{annexId:guid}", annexId.ToString()}
+                { "{projectId:guid}", projectId.ToString() }, { "{annexId:guid}", annexId.ToString() }
             }));
     }
 
@@ -63,8 +61,7 @@ public class NavigationService(NavigationManager navigationManager) : INavigatio
         navigationManager.NavigateTo(GetPathWithVariables(Paths.BranchCreate,
             new Dictionary<string, string>
             {
-                {"{projectId:guid}", projectId.ToString()},
-                {"{annexId:guid}", annexId.ToString()}
+                { "{projectId:guid}", projectId.ToString() }, { "{annexId:guid}", annexId.ToString() }
             }));
     }
 
@@ -73,8 +70,7 @@ public class NavigationService(NavigationManager navigationManager) : INavigatio
         navigationManager.NavigateTo(GetPathWithVariables(Paths.BranchList,
             new Dictionary<string, string>
             {
-                {"{projectId:guid}", projectId.ToString()},
-                {"{annexId:guid}", annexId.ToString()}
+                { "{projectId:guid}", projectId.ToString() }, { "{annexId:guid}", annexId.ToString() }
             }));
     }
 
@@ -83,9 +79,9 @@ public class NavigationService(NavigationManager navigationManager) : INavigatio
         navigationManager.NavigateTo(GetPathWithVariables(Paths.Branch,
             new Dictionary<string, string>
             {
-                {"{projectId:guid}", projectId.ToString()},
-                {"{annexId:guid}", annexId.ToString()},
-                {"{branchId:guid}", branchId.ToString()}
+                { "{projectId:guid}", projectId.ToString() },
+                { "{annexId:guid}", annexId.ToString() },
+                { "{branchId:guid}", branchId.ToString() }
             }));
     }
 
@@ -94,9 +90,9 @@ public class NavigationService(NavigationManager navigationManager) : INavigatio
         navigationManager.NavigateTo(GetPathWithVariables(Paths.BranchManage,
             new Dictionary<string, string>
             {
-                {"{projectId:guid}", projectId.ToString()},
-                {"{annexId:guid}", annexId.ToString()},
-                {"{branchId:guid}", branchId.ToString()}
+                { "{projectId:guid}", projectId.ToString() },
+                { "{annexId:guid}", annexId.ToString() },
+                { "{branchId:guid}", branchId.ToString() }
             }));
     }
 
@@ -105,9 +101,9 @@ public class NavigationService(NavigationManager navigationManager) : INavigatio
         navigationManager.NavigateTo(GetPathWithVariables(Paths.VersionCreate,
             new Dictionary<string, string>
             {
-                {"{projectId:guid}", projectId.ToString()},
-                {"{annexId:guid}", annexId.ToString()},
-                {"{branchId:guid}", branchId.ToString()}
+                { "{projectId:guid}", projectId.ToString() },
+                { "{annexId:guid}", annexId.ToString() },
+                { "{branchId:guid}", branchId.ToString() }
             }));
     }
 
@@ -116,9 +112,9 @@ public class NavigationService(NavigationManager navigationManager) : INavigatio
         navigationManager.NavigateTo(GetPathWithVariables(Paths.VersionList,
             new Dictionary<string, string>
             {
-                {"{projectId:guid}", projectId.ToString()},
-                {"{annexId:guid}", annexId.ToString()},
-                {"{branchId:guid}", branchId.ToString()}
+                { "{projectId:guid}", projectId.ToString() },
+                { "{annexId:guid}", annexId.ToString() },
+                { "{branchId:guid}", branchId.ToString() }
             }));
     }
 
@@ -127,10 +123,10 @@ public class NavigationService(NavigationManager navigationManager) : INavigatio
         navigationManager.NavigateTo(GetPathWithVariables(Paths.Version,
             new Dictionary<string, string>
             {
-                {"{projectId:guid}", projectId.ToString()},
-                {"{annexId:guid}", annexId.ToString()},
-                {"{branchId:guid}", branchId.ToString()},
-                {"{versionId:guid}", versionId.ToString()},
+                { "{projectId:guid}", projectId.ToString() },
+                { "{annexId:guid}", annexId.ToString() },
+                { "{branchId:guid}", branchId.ToString() },
+                { "{versionId:guid}", versionId.ToString() }
             }));
     }
 
@@ -139,16 +135,21 @@ public class NavigationService(NavigationManager navigationManager) : INavigatio
         navigationManager.NavigateTo(GetPathWithVariables(Paths.VersionManage,
             new Dictionary<string, string>
             {
-                {"{projectId:guid}", projectId.ToString()},
-                {"{annexId:guid}", annexId.ToString()},
-                {"{branchId:guid}", branchId.ToString()},
-                {"{versionId:guid}", versionId.ToString()},
+                { "{projectId:guid}", projectId.ToString() },
+                { "{annexId:guid}", annexId.ToString() },
+                { "{branchId:guid}", branchId.ToString() },
+                { "{versionId:guid}", versionId.ToString() }
             }));
+    }
+
+    public void GoToLoginPage()
+    {
+        navigationManager.NavigateTo($"/login?redirectUri={navigationManager.Uri}");
     }
 
     private static string GetPathWithVariables(string initialPath, Dictionary<string, string> variables)
     {
-        return variables.Aggregate(initialPath, (current, variable) => 
+        return variables.Aggregate(initialPath, (current, variable) =>
             current.Replace(variable.Key, variable.Value));
     }
 }

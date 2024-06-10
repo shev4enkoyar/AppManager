@@ -1,0 +1,10 @@
+@inject INavigationService NavigationService
+
+@code {
+
+    protected override void OnInitialized()
+    {
+        NavigationService.GoToLoginPage();
+    }
+
+}

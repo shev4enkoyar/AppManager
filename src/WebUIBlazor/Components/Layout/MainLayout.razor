@@ -1,6 +1,5 @@
 ﻿@using Microsoft.AspNetCore.Components.Authorization
 @using WebUIBlazor.Auth
-@using WebUIBlazor.Models
 @inherits LayoutComponentBase
 @inject LoginService LoginService
 @inject AuthenticationStateProvider AuthenticationStateProvider
@@ -14,18 +13,25 @@
     <MudAppBar Dense="true" Elevation="2">
         <MudText @onclick="OnTitleTextClickHandler" Typo="Typo.h5" Class="ml-3">AppManager</MudText>
         <MudSpacer/>
-        <MudIconButton Size="Size.Medium" Icon="@Icons.Material.Filled.Notifications" OnClick="OnNotificationButtonClickHandler"/>
         @if (IsSignIn)
         {
+            <MudIconButton Size="Size.Medium" Icon="@Icons.Material.Filled.Notifications" OnClick="OnNotificationButtonClickHandler"/>
             <MudMenu AnchorOrigin="Origin.BottomCenter" TransformOrigin="Origin.TopRight" ActivationEvent="MouseEvent.MouseOver">
                 <ActivatorContent>
                     <MudChip>
                         <AvatarContent>
                             <MudAvatar Color="Color.Tertiary">
-                                Y
+                                @if (string.IsNullOrWhiteSpace(UserName))
+                                {
+                                    @("?")
+                                }
+                                else
+                                {
+                                    @UserName[0]
+                                }
                             </MudAvatar>
                         </AvatarContent>
-                        <ChildContent>Yaroslav Shevchenko</ChildContent>
+                        <ChildContent>@UserName</ChildContent>
                     </MudChip>
                 </ActivatorContent>
                 <ChildContent>
@@ -35,18 +41,6 @@
                 </ChildContent>
             </MudMenu>
         }
-        else
-        {
-            <MudChip OnClick="OnSignInClickHandler">
-                <AvatarContent>
-                    <MudAvatar Color="Color.Primary">
-                        ?
-                    </MudAvatar>
-                </AvatarContent>
-                <ChildContent>Sign In</ChildContent>
-            </MudChip>
-        }
-        
     </MudAppBar>
     <MudMainContent Class="mt-16 pa-4">
         @Body
@@ -55,12 +49,17 @@
 
 @code
 {
-    protected override async Task OnInitializedAsync()
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        
+        if (firstRender)
+        {
+            await FillUserInfoAsync();
+        }
     }
 
-    private bool IsSignIn { get; set; } = false;
+    private bool IsSignIn { get; set; }
+    private string? UserName { get; set; }
+
     private void OnTitleTextClickHandler()
     {
         NavigationService.GoToProjectList();
@@ -68,7 +67,6 @@
 
     private void OnNotificationButtonClickHandler()
     {
-        
     }
 
     private async Task OnSignOutSelectHandler()
@@ -85,15 +83,18 @@
     {
     }
 
-    private async Task OnSignInClickHandler()
+    private async Task FillUserInfoAsync()
     {
-        IsSignIn = await LoginService.LoginAsync(new LoginModel()
+        var user = (await AuthenticationStateProvider.GetAuthenticationStateAsync()).User.Identity;
+        if (user == null)
         {
-            Email = "administrator@localhost",
-            Password = "Administrator1!"
-        });
+            IsSignIn = false;
+            StateHasChanged();
+            return;
+        }
 
-        var state = (await AuthenticationStateProvider.GetAuthenticationStateAsync()).User.Identity.IsAuthenticated;
+        IsSignIn = user.IsAuthenticated;
+        UserName = user.Name;
         StateHasChanged();
     }
 }

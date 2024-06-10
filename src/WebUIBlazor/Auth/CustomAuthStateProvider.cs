@@ -1,5 +1,4 @@
 using System.Security.Claims;
-using System.Text.Json;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Components.Authorization;
 
@@ -13,15 +12,15 @@ public class CustomAuthStateProvider : AuthenticationStateProvider
     {
         _loginService = loginService;
     }
-    
+
     public override async Task<AuthenticationState> GetAuthenticationStateAsync()
     {
-        var claims = await _loginService.GetLoginInfoAsync();
-        
-        var claimsIdentity = claims.Count() != 0 
-            ? new ClaimsIdentity(claims, JwtBearerDefaults.AuthenticationScheme, "name", "role") 
+        List<Claim> claims = await _loginService.GetLoginInfoAsync();
+
+        ClaimsIdentity claimsIdentity = claims.Count != 0
+            ? new ClaimsIdentity(claims, JwtBearerDefaults.AuthenticationScheme, ClaimTypes.Name, ClaimTypes.Role)
             : new ClaimsIdentity();
-        var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
+        ClaimsPrincipal claimsPrincipal = new(claimsIdentity);
         return new AuthenticationState(claimsPrincipal);
     }
 }

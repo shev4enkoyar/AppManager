@@ -1,0 +1,84 @@
+@page "/login"
+@page "/"
+@using Microsoft.AspNetCore.Components.Authorization
+@using WebUIBlazor.Auth
+@using WebUIBlazor.Models
+@inject LoginService LoginService
+@inject AuthenticationStateProvider AuthenticationStateProvider
+
+<PageTitle>Sign In</PageTitle>
+<MudContainer Class="mt-16">
+    <MudText Typo="Typo.h3" Align="Align.Center" GutterBottom="true">Sign In</MudText>
+    <MudText Align="Align.Center">Don't have an account? Contact your administrator to obtain a personal account.</MudText>
+    <MudGrid Justify="Justify.Center" Class="mt-8">
+        <MudItem xs="12" sm="6" md="4">
+            <MudCard Elevation="25" Class="rounded-lg pb-4">
+                <MudForm Disabled="IsLoading">
+                    <MudCardContent>
+                        <MudTextField Class="mb-6" @bind-Value="_login" Label="Login/Email" Variant="Variant.Outlined"/>
+                        <MudTextField @bind-Value="_password"
+                                      Label="Password"
+                                      Variant="Variant.Outlined"
+                                      InputType="@_passwordInput"
+                                      Adornment="Adornment.End"
+                                      AdornmentIcon="@_passwordInputIcon"
+                                      OnAdornmentClick="OnTogglePasswordVisibilityClickHandler"
+                                      AdornmentAriaLabel="Show Password"/>
+                    </MudCardContent>
+                </MudForm>
+                <MudCardActions Class="d-flex justify-center">
+                    <MudLoadingButton Loading="IsLoading"
+                                      OnClick="OnSignInClickHandler"
+                                      Variant="Variant.Filled"
+                                      Color="Color.Primary"
+                                      Size="Size.Large"
+                                      Style="width:50%;">
+                        Sign In
+                    </MudLoadingButton>
+                </MudCardActions>
+            </MudCard>
+        </MudItem>
+    </MudGrid>
+</MudContainer>
+
+@code {
+    string _password = "Administrator1!";
+    string _login = "administrator@localhost";
+
+    bool _isShownPassword;
+    InputType _passwordInput = InputType.Password;
+    string _passwordInputIcon = Icons.Material.Filled.VisibilityOff;
+
+    void OnTogglePasswordVisibilityClickHandler()
+    {
+        @if (_isShownPassword)
+        {
+            _isShownPassword = false;
+            _passwordInputIcon = Icons.Material.Filled.VisibilityOff;
+            _passwordInput = InputType.Password;
+        }
+        else
+        {
+            _isShownPassword = true;
+            _passwordInputIcon = Icons.Material.Filled.Visibility;
+            _passwordInput = InputType.Text;
+        }
+    }
+
+    bool IsLoading { get; set; }
+
+    private async Task OnSignInClickHandler()
+    {
+        IsLoading = true;
+        await Task.Delay(1000);
+        await LoginService.LoginAsync(new LoginModel
+        {
+            Email = _login,
+            Password = _password
+        });
+        var user = (await AuthenticationStateProvider.GetAuthenticationStateAsync()).User.Identity;
+        NavigationService.GoToProjectList(true);
+        IsLoading = false;
+    }
+
+}
