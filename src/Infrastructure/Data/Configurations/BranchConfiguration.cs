@@ -13,5 +13,13 @@ public class BranchConfiguration : IEntityTypeConfiguration<Branch>
             .WithOne(x => x.Branch)
             .HasForeignKey(x => x.BranchId)
             .HasPrincipalKey(x => x.Id);
+        
+        builder
+            .HasMany(x => x.ExternalTokens)
+            .WithMany(x => x.Branches);
+
+        builder
+            .HasMany(x => x.Tags)
+            .WithMany(x => x.Branches);
     }
 }

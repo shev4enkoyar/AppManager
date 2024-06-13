@@ -38,8 +38,7 @@ public class CreateBranchCommandHandler : IRequestHandler<CreateBranchCommand, G
         var branchWithTag = await _dbContext.Branches
             .AsNoTracking()
             .SingleOrDefaultAsync(x =>
-                x.AnnexId.Equals(request.AnnexId) &&
-                x.Tag.Equals(request.Tag), cancellationToken);
+                x.AnnexId.Equals(request.AnnexId), cancellationToken);
 
         if (branchWithTag != null)
             throw new ArgumentException($"Branch with tag {request.Tag} already exists.");
@@ -50,7 +49,6 @@ public class CreateBranchCommandHandler : IRequestHandler<CreateBranchCommand, G
             Description = request.Description,
             AnnexId = request.AnnexId,
             IsPrivate = request.IsPrivate,
-            Tag = request.Tag
         };
 
         await _dbContext.Branches.AddAsync(branch, cancellationToken);

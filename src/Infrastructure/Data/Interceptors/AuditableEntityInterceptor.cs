@@ -42,17 +42,17 @@ public class AuditableEntityInterceptor : SaveChangesInterceptor
         if (context == null) return;
 
         foreach (var entry in context.ChangeTracker.Entries<BaseAuditableEntity>())
-        {
+        { 
             if (entry.State is EntityState.Added or EntityState.Modified || entry.HasChangedOwnedEntities())
             {
                 var utcNow = _dateTime.GetUtcNow();
                 if (entry.State == EntityState.Added)
                 {
                     entry.Entity.CreatedBy = _user.Id;
-                    entry.Entity.Created = utcNow;
+                    entry.Entity.CreatedAt = utcNow;
                 } 
-                entry.Entity.LastModifiedBy = _user.Id;
-                entry.Entity.LastModified = utcNow;
+                entry.Entity.UpdatedBy = _user.Id;
+                entry.Entity.UpdatedAt = utcNow;
             }
         }
     }

@@ -3,10 +3,8 @@ using System.Collections.Generic;
 
 namespace AppManager.Domain.Entities;
 
-public class Branch
+public class Branch : BaseAuditableEntity
 {
-    public Guid Id { get; set; }
-    
     public string Name { get; set; } = null!;
     
     public string Description { get; set; } = null!;
@@ -18,6 +16,8 @@ public class Branch
     public IList<Version> Versions { get; set; } = [];
     
     public bool IsPrivate { get; set; }
-
-    public string Tag { get; set; } = null!;
+    
+    public IList<ExternalToken> ExternalTokens { get; set; } = [];
+    
+    public IList<Tag> Tags { get; set; } = [];
 }

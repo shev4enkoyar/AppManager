@@ -3,10 +3,8 @@ using System.Collections.Generic;
 
 namespace AppManager.Domain.Entities;
 
-public class Annex
+public class Annex : BaseAuditableEntity
 {
-    public Guid Id { get; set; }
-    
     public string Name { get; set; } = null!;
     
     public string Description { get; set; } = null!;
@@ -16,4 +14,6 @@ public class Annex
     public Project Project { get; set; } = null!;
 
     public IList<Branch> Branches { get; set; } = [];
+    
+    public IList<ExternalToken> ExternalTokens { get; set; } = [];
 }

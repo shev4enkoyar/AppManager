@@ -12,6 +12,8 @@ public interface IApplicationDbContext
     
     public DbSet<Branch> Branches { get; }
     
+    public DbSet<Tag> Tags { get; }
+    
     public DbSet<Version> Versions { get; }
 
     Task<int> SaveChangesAsync(CancellationToken cancellationToken);

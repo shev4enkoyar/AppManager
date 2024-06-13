@@ -16,7 +16,9 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplica
     public DbSet<Annex> Annexes => Set<Annex>();
     
     public DbSet<Branch> Branches => Set<Branch>();
-    
+
+    public DbSet<Tag> Tags => Set<Tag>();
+
     public DbSet<Version> Versions => Set<Version>();
 
     protected override void OnModelCreating(ModelBuilder builder)

@@ -13,5 +13,9 @@ public class AnnexConfiguration : IEntityTypeConfiguration<Annex>
             .WithOne(x => x.Annex)
             .HasForeignKey(x => x.AnnexId)
             .HasPrincipalKey(x => x.Id);
+        
+        builder
+            .HasMany(x => x.ExternalTokens)
+            .WithMany(x => x.Annexes);
     }
 }

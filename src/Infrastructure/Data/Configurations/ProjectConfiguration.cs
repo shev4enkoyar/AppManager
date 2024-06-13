@@ -13,5 +13,9 @@ public class ProjectConfiguration : IEntityTypeConfiguration<Project>
             .WithOne(x => x.Project)
             .HasForeignKey(x => x.ProjectId)
             .HasPrincipalKey(x => x.Id);
+
+        builder
+            .HasMany(x => x.ExternalTokens)
+            .WithMany(x => x.Projects);
     }
 }

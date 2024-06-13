@@ -2,15 +2,15 @@ using System;
 
 namespace AppManager.Domain.Entities;
 
-public class Version
+public class Version : BaseAuditableEntity
 {
-    public Guid Id { get; set; }
-    
     public string Name { get; set; } = null!;
     
     public string Description { get; set; } = null!;
     
     public string Number { get; set; } = null!;
+    
+    public bool IsPublished { get; set; }
     
     public Guid BranchId { get; set; }
     
