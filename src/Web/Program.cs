@@ -53,6 +53,8 @@ app.UseExceptionHandler(options => { });
 
 app.Map("/", () => Results.Redirect("/api"));
 
+app.UseAntiforgery();
+
 app.MapEndpoints();
 
 await app.RunAsync();

@@ -6,6 +6,7 @@
     <AssemblyName>AppManager.Web</AssemblyName>
     <Version>1.0.0</Version>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>

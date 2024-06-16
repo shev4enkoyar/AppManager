@@ -12,6 +12,8 @@ public class Version : BaseAuditableEntity
     
     public bool IsPublished { get; set; }
     
+    public string? FilePath { get; set; }
+    
     public Guid BranchId { get; set; }
     
     public Branch Branch { get; set; } = null!;

@@ -4,6 +4,7 @@ using AppManager.Domain.Constants;
 using AppManager.Infrastructure.Data;
 using AppManager.Infrastructure.Data.Interceptors;
 using AppManager.Infrastructure.Identity;
+using AppManager.Infrastructure.Services;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -49,6 +50,7 @@ public static class DependencyInjection
 
         services.AddSingleton(TimeProvider.System);
         services.AddTransient<IIdentityService, IdentityService>();
+        services.AddTransient<IFileManager, FileManager>();
 
         services.AddAuthorization(options =>
             options.AddPolicy(Policies.CanPurge, policy => policy.RequireRole(Roles.Administrator)));
