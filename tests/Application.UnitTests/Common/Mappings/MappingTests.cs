@@ -3,6 +3,7 @@ using System.Runtime.CompilerServices;
 using AppManager.Application.Branches.Queries.GetBranch;
 using AppManager.Application.Branches.Queries.GetBranchesWithPagination;
 using AppManager.Application.Common.Interfaces;
+using AppManager.Application.Versions.Queries.GetVersion;
 using AppManager.Application.Versions.Queries.GetVersionsWithPagination;
 using AppManager.Domain.Entities;
 using AutoMapper;
@@ -31,6 +32,7 @@ public class MappingTests
 
     [Theory]
     [InlineData(typeof(Version), typeof(VersionBriefDto))]
+    [InlineData(typeof(Version), typeof(VersionDto))]
     [InlineData(typeof(Branch), typeof(BranchBriefDto))]
     [InlineData(typeof(Branch), typeof(BranchDto))]
     public void ShouldSupportMappingFromSourceToDestination(Type source, Type destination)
