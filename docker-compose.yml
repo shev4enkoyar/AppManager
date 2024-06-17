@@ -8,6 +8,8 @@
       ConnectionStrings__DefaultConnection: "Host=postgres-database;Database=test_database;User Id=admin;Password=admin;Port=5432"
     depends_on:
       - postgres
+    volumes:
+      - ./appmanagerfile-data:/app/uploaded-files
     ports:
       - "81:8080"
       - "444:8081"
@@ -35,6 +37,8 @@
       POSTGRES_DB: "test_database"
       POSTGRES_USER: "admin"
       POSTGRES_PASSWORD: "admin"
+    volumes:
+      - ./appmanagerdb-data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
     networks:

@@ -17,6 +17,8 @@
 mono_crash.*
 
 # Build results
+appmanagerdb-data
+appmanagerfile-data
 [Dd]ebug/
 [Dd]ebugPublic/
 [Rr]elease/
