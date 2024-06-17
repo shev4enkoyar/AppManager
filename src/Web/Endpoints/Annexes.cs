@@ -17,7 +17,7 @@ public class Annexes : EndpointGroupBase
     {
         app.MapGroup(this)
             .RequireAuthorization()
-            .MapGet(GetAnnex, "{id}")
+            .MapGet(GetAnnex, "{id}", allowAnonymous: true)
             .MapGet(GetAnnexesWithPagination)
             .MapPost(CreateAnnex)
             .MapPut(UpdateAnnex, "{id}")

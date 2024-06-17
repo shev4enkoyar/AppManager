@@ -8,18 +8,23 @@ namespace AppManager.Web.Infrastructure;
 
 public static class EndpointRouteBuilderExtensions
 {
-    public static IEndpointRouteBuilder MapGet(this IEndpointRouteBuilder builder, Delegate handler, [StringSyntax("Route")] string pattern = "", bool disableAntiforgery = false)
+    public static IEndpointRouteBuilder MapGet(this IEndpointRouteBuilder builder, Delegate handler, [StringSyntax("Route")] string pattern = "", bool disableAntiforgery = false, bool allowAnonymous = false)
     {
         Guard.Against.AnonymousMethod(handler);
 
         var getBuilder = builder.MapGet(pattern, handler)
             .WithName(handler.Method.Name);
-        
+
         if (disableAntiforgery)
         {
             getBuilder.DisableAntiforgery();
         }
 
+        if (allowAnonymous)
+        {
+            getBuilder.AllowAnonymous();
+        }
+        
         return builder;
     }
 
@@ -33,7 +38,7 @@ public static class EndpointRouteBuilderExtensions
         return builder;
     }
 
-    public static IEndpointRouteBuilder MapPostUpload(this IEndpointRouteBuilder builder, Delegate handler,
+    public static IEndpointRouteBuilder MapPostFile(this IEndpointRouteBuilder builder, Delegate handler,
         [StringSyntax("Route")] string pattern = "", bool disableAntiforgery = true, long requestSizeLimit = 204857600)
     {
         Guard.Against.AnonymousMethod(handler);

@@ -12,8 +12,6 @@ public class BranchBriefDto
     public string Description { get; set; } = null!;
     
     public bool IsPrivate { get; set; }
-
-    public string Tag { get; set; } = null!;
     
     private class Mapping : Profile
     {

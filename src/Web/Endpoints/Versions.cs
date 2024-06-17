@@ -30,13 +30,13 @@ public class Versions : EndpointGroupBase
     {
         app.MapGroup(this)
             .RequireAuthorization()
-            .MapGet(GetVersionInfo, "{id}")
-            .MapGet(GetVersionsWithPagination)
+            .MapGet(GetVersionInfo, "{id}", allowAnonymous: true)
+            .MapGet(GetVersionsWithPagination, allowAnonymous: true)
             .MapPost(CreateVersion)
             .MapPut(UpdateVersion, "{id}")
             .MapDelete(DeleteVersion, "{id}")
-            .MapPostUpload(UploadVersion, "{id}/upload")
-            .MapGet(DownloadVersion, "{id}/download", true)
+            .MapPostFile(UploadVersion, "{id}/upload")
+            .MapGet(DownloadVersion, "{id}/download", disableAntiforgery: true, allowAnonymous: true)
             .MapTus("{id}/bigupload", TusConfigurationFactory);
     }
 

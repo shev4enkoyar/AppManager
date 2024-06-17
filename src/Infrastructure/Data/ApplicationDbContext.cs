@@ -20,6 +20,8 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplica
     public DbSet<Tag> Tags => Set<Tag>();
 
     public DbSet<Version> Versions => Set<Version>();
+    
+    public DbSet<ExternalToken> ExternalTokens => Set<ExternalToken>();
 
     protected override void OnModelCreating(ModelBuilder builder)
     {

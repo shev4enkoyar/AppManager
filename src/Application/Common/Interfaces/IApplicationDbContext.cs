@@ -15,6 +15,8 @@ public interface IApplicationDbContext
     public DbSet<Tag> Tags { get; }
     
     public DbSet<Version> Versions { get; }
+    
+    public DbSet<ExternalToken> ExternalTokens { get; }
 
     Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 }

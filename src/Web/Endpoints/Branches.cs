@@ -17,8 +17,8 @@ public class Branches : EndpointGroupBase
     {
         app.MapGroup(this)
             .RequireAuthorization()
-            .MapGet(GetBranch, "{id}")
-            .MapGet(GetBranchesWithPagination)
+            .MapGet(GetBranch, "{id}", allowAnonymous: true)
+            .MapGet(GetBranchesWithPagination, allowAnonymous: true)
             .MapPost(CreateBranch)
             .MapPut(UpdateBranch, "{id}")
             .MapDelete(DeleteBranch, "{id}");
