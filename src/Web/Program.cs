@@ -30,14 +30,11 @@ app.UseHealthChecks("/health");
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
-if (app.Environment.IsDevelopment())
+app.UseSwaggerUi(settings =>
 {
-    app.UseSwaggerUi(settings =>
-    {
-        settings.Path = "/swagger";
-        settings.DocumentPath = "/api/specification.json";
-    });
-}
+    settings.Path = "/swagger";
+    settings.DocumentPath = "/api/specification.json";
+});
 
 app.UseReDoc(settings =>
 {
