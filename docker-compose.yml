@@ -4,8 +4,8 @@
     build:
       context: .
       dockerfile: src/Web/Dockerfile
-    #    environment:
-    #      ConnectionStrings__DefaultConnection: "Host=postgres-database;Database=test_database;User Id=admin;Password=admin;Port=5432"
+    environment:
+      ConnectionStrings__DefaultConnection: "Host=postgres-database;Database=test_database;User Id=admin;Password=admin;Port=5432"
     depends_on:
       - postgres
     ports:
